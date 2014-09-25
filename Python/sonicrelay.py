@@ -185,7 +185,7 @@ def main():
   os.chdir(sonicrelay)
   jpeg = last_made(dirpath='.', suffix='.jpg', depth=0)
 
-  java_cmd = [java, '-jar', f5, '-x', '-p', steg_key,
+  java_cmd = [java, '-jar', f5, 'x', '-p', steg_key,
               '-e', text, jpeg]
   output = subprocess.check_output(java_cmd)
   if debug:
