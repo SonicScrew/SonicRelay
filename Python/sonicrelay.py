@@ -170,7 +170,7 @@ def main():
   if "sonicrelay" in config:
     sonicrelay = config['sonicrelay']
   else:
-    profiles = os.path.join(home, "sonicrelay")
+    sonicrelay = os.path.join(home, "sonicrelay")
   debug = config.get("debug", False)
   if debug:
     tk = Tkinter.Tk()
