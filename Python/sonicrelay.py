@@ -8,10 +8,13 @@ import subprocess
 import smtplib
 import re
 import Tkinter
+import stat
 
 from ConfigParser import SafeConfigParser
 
 from string import printable
+
+from stat import *
 
 class SonicRelayError(Exception):
   pass
@@ -88,7 +91,9 @@ def last_made(dirpath='.', suffix=None, depth=0):
       break
     else:
        i += 1
-  return result[1]
+  if result is not None:
+    result = result[1]
+  return result
 
 
 
@@ -168,16 +173,16 @@ def main():
   else:
     raise ConfigError("Unable to find '%s' config." % config_file)
   if "sonicrelay" in config:
-    sonicrelay = config['.sonicrelay']
+    sonicrelay = config['sonicrelay']
   else:
-    sonicrelay = os.path.join(home, ".sonicrelay")
+    sonicrelay = os.path.join(home, "sonicrelay")
   debug = config.get("debug", False)
   if debug:
     tk = Tkinter.Tk()
     tk.title("SonicRelay")
     txt = Tkinter.Text(tk)
     txt.pack(expand=Tkinter.YES, fill=Tkinter.BOTH)
-  sonicoind = config['daemon']
+  soniccoind = config['daemon']
   f5 = config.get("f5", "f5.jar")
   text = config.get("text", "text.txt")
   java = config.get("java", "java")
